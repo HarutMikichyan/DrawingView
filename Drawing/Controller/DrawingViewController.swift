@@ -55,10 +55,9 @@ class DrawingViewController: UIViewController, GetColorDelegate, GetClearSizeDel
     }
     
     @IBAction func clearColor(_ sender: UIButton) {
+        clearViewOutlet.delegate = self
         drawingView.mode = .clear
         showView(clearViewOutlet)
-        
-        clearViewOutlet.delegate = self
     }
     
     @IBAction func undo(_ sender: UIButton) {
@@ -80,13 +79,29 @@ class DrawingViewController: UIViewController, GetColorDelegate, GetClearSizeDel
             
             self.present(alert, animated: true)
         } else {
-            self.pathsArray.append(self.drawingView.paths)
+            var text = "Appended To Image List"
+            //check identifier
+            let imageIdentifier = drawingView.paths.compactMap{$0.identifier}.reduce(0, +)
+            PathFragment.id = 0
+            for i in 0..<pathsArray.count {
+                let pathsArr = pathsArray[i]
+                let pathsIdentifier = pathsArr.compactMap{$0.identifier}.reduce(0, +)
+                if imageIdentifier == pathsIdentifier {
+                    text = "Image existent"
+                    break
+                }
+            }
+            
+            if text == "Appended To Image List" {
+                self.pathsArray.append(self.drawingView.paths)
+            }
+            //show label
             let label: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
             label.backgroundColor = .black
             label.textColor = .white
             label.center = self.view.center
             label.textAlignment = NSTextAlignment.center
-            label.text = "Appended To Image List"
+            label.text = text
             self.view.addSubview(label)
             
             Timer.scheduledTimer(withTimeInterval: 1.2, repeats: true) { [weak self] (timer) in

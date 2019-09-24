@@ -83,7 +83,7 @@ class ImageListViewController: UIViewController, GetPathsImage {
                     navigationController?.popViewController(animated: true)
                 } else {
                     let indexPath = IndexPath(item: index, section: 0)
-                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
                     break
                 }
             }
@@ -93,10 +93,6 @@ class ImageListViewController: UIViewController, GetPathsImage {
 
 //MARK: - UITableView Delegate DataSource
 extension ImageListViewController: UITableViewDelegate, UITableViewDataSource {
-    
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        print("kjgl")
-//    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return view.bounds.height / 1.1

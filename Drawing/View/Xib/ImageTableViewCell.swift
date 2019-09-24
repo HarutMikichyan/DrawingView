@@ -17,7 +17,7 @@ protocol GetPathsImage: class {
 class ImageTableViewCell: UITableViewCell {
     static let identifier = "ImageTableViewCell"
     
-    var indexPath = Int()
+    var indexPath = 0
     weak var delegate: GetPathsImage?
     
     @IBOutlet weak var pathsView: PathsCellView!
