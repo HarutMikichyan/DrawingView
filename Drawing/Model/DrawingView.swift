@@ -44,7 +44,7 @@ class DrawingView: UIView {
         super.init(coder: aDecoder)
     }
     
-    //MARK: - Drow Methods
+    //MARK: - Draw Methods
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         path = UIBezierPath()
         path.lineWidth = colorSize

@@ -9,8 +9,8 @@
 import UIKit
 
 class DrawingViewController: UIViewController, GetColorDelegate, GetClearSizeDelegate {
-    static var backgroundView = UIView()
     
+    var backgroundView = UIView()
     var movePaths = [PathFragment]()
     var pathsArray = [[PathFragment]]()
     
@@ -44,7 +44,7 @@ class DrawingViewController: UIViewController, GetColorDelegate, GetClearSizeDel
     //MARK: - Actions
     @IBAction func addPencilColor(_ sender: UIButton) {
         drawingView.mode = .draw
-        showView(colorViewOutlet)
+        colorViewOutlet.showView(self.view)
         
         colorViewOutlet.delegate = self
         //send data
@@ -57,7 +57,7 @@ class DrawingViewController: UIViewController, GetColorDelegate, GetClearSizeDel
     @IBAction func clearColor(_ sender: UIButton) {
         clearViewOutlet.delegate = self
         drawingView.mode = .clear
-        showView(clearViewOutlet)
+        clearViewOutlet.showView(self.view)
     }
     
     @IBAction func undo(_ sender: UIButton) {
@@ -142,31 +142,6 @@ class DrawingViewController: UIViewController, GetColorDelegate, GetClearSizeDel
     func erase() {
         drawingView.paths.removeAll()
         drawingView.setNeedsDisplay()
-    }
-    
-    //MARK: - Private Interface
-    private func showView(_ view: UIView) {
-        DrawingViewController.backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
-        self.view.addSubview(DrawingViewController.backgroundView)
-        DrawingViewController.backgroundView.addSubview(view)
-        view.center = DrawingViewController.backgroundView.center
-        
-        DrawingViewController.backgroundView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
-        DrawingViewController.backgroundView.alpha = 0
-        
-        UIView.animate(withDuration: 0.4) {
-            DrawingViewController.backgroundView.alpha = 1
-            DrawingViewController.backgroundView.transform = CGAffineTransform.identity
-        }
-    }
-    
-    private func closeView() {
-        UIView.animate(withDuration: 0.3, animations: {
-            DrawingViewController.backgroundView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
-            DrawingViewController.backgroundView.alpha = 0
-        }) { (success: Bool) in
-            DrawingViewController.backgroundView.removeFromSuperview()
-        }
     }
 }
 
