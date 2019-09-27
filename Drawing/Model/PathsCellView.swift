@@ -2,7 +2,7 @@
 //  PathsCellView.swift
 //  Drawing
 //
-//  Created by 1 on 9/22/19.
+//  Created by 1 on 9/27/19.
 //  Copyright © 2019 1. All rights reserved.
 //
 
@@ -17,6 +17,6 @@ class PathsCellView: UIView {
             fragment.color.setStroke()
             fragment.path.stroke()
         }
-        setNeedsDisplay()
     }
+
 }

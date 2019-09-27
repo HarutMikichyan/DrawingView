@@ -15,6 +15,7 @@ class DrawingViewController: UIViewController, GetColorDelegate, GetClearSizeDel
     var pathsArray = [[PathFragment]]()
     
     //MARK: - Outlets
+    @IBOutlet weak var buttonControlView: UIView!
     @IBOutlet var colorViewOutlet: AddColorView!
     @IBOutlet var clearViewOutlet: ClearView!
     @IBOutlet weak var drawingView: DrawingView! {
@@ -44,9 +45,10 @@ class DrawingViewController: UIViewController, GetColorDelegate, GetClearSizeDel
     //MARK: - Actions
     @IBAction func addPencilColor(_ sender: UIButton) {
         drawingView.mode = .draw
-        colorViewOutlet.showView(self.view)
-        
         colorViewOutlet.delegate = self
+        getBackgroundView()
+        colorViewOutlet.appBackgroundView = backgroundView
+        
         //send data
         colorViewOutlet.colorSizeSlider.value = Float(drawingView.colorSize)
         colorViewOutlet.colorSizeLabel.text = "\(Int(drawingView.colorSize))"
@@ -55,9 +57,10 @@ class DrawingViewController: UIViewController, GetColorDelegate, GetClearSizeDel
     }
     
     @IBAction func clearColor(_ sender: UIButton) {
-        clearViewOutlet.delegate = self
         drawingView.mode = .clear
-        clearViewOutlet.showView(self.view)
+        clearViewOutlet.delegate = self
+        getBackgroundView()
+        clearViewOutlet.appBackgroundView = backgroundView
     }
     
     @IBAction func undo(_ sender: UIButton) {
@@ -128,6 +131,17 @@ class DrawingViewController: UIViewController, GetColorDelegate, GetClearSizeDel
         }
     }
     
+    @IBAction func moveTapped(_ sender: UIButton) {
+//        if sender.backgroundColor == .white {
+//            sender.backgroundColor = #colorLiteral(red: 0.7540688515, green: 0.7540867925, blue: 0.7540771365, alpha: 1)
+//
+//        } else {
+//            sender.backgroundColor = .white
+//        }
+//        movePathViewOutlet.delegate = self
+        getBackgroundView()
+    }
+    
     //MARK: - GetColorDelegate Func
     func getColor(_ color: UIColor, _ colorSize: CGFloat) {
         drawingView.color = color
@@ -143,5 +157,21 @@ class DrawingViewController: UIViewController, GetColorDelegate, GetClearSizeDel
         drawingView.paths.removeAll()
         drawingView.setNeedsDisplay()
     }
+    
+    private func getBackgroundView() {
+        backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
+        self.view.addSubview(backgroundView)
+    }
+    
+//    func closeView(_ subView: UIView) {
+//        UIView.animate(withDuration: 0.3, animations: {
+////            subView.removeFromSuperview()
+//            self.backgroundView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+//            self.backgroundView.alpha = 0
+//        }) { (success: Bool) in
+//            subView.removeFromSuperview()
+//            self.backgroundView.removeFromSuperview()
+//        }
+//    }
 }
 

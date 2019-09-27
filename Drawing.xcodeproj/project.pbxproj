@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63116199233E439400865320 /* PathsCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63116198233E439400865320 /* PathsCellView.swift */; };
 		63194CA42336683D00CD650A /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63194CA22336683D00CD650A /* ImageTableViewCell.swift */; };
 		63194CA52336683D00CD650A /* ImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63194CA32336683D00CD650A /* ImageTableViewCell.xib */; };
-		63194CAB2337B08300CD650A /* PathsCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63194CAA2337B08300CD650A /* PathsCellView.swift */; };
 		63194CAD2338D82D00CD650A /* ImageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63194CAC2338D82D00CD650A /* ImageListViewController.swift */; };
 		6327C6982334AD04003EF836 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6327C6972334AD04003EF836 /* AppDelegate.swift */; };
 		6327C69A2334AD04003EF836 /* DrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6327C6992334AD04003EF836 /* DrawingViewController.swift */; };
@@ -22,9 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		63116198233E439400865320 /* PathsCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathsCellView.swift; sourceTree = "<group>"; };
 		63194CA22336683D00CD650A /* ImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		63194CA32336683D00CD650A /* ImageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageTableViewCell.xib; sourceTree = "<group>"; };
-		63194CAA2337B08300CD650A /* PathsCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathsCellView.swift; sourceTree = "<group>"; };
 		63194CAC2338D82D00CD650A /* ImageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListViewController.swift; sourceTree = "<group>"; };
 		6327C6942334AD04003EF836 /* Drawing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drawing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6327C6972334AD04003EF836 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -74,7 +74,7 @@
 				6327C6A92334AF04003EF836 /* DrawingView.swift */,
 				6341509B2334BCA50068C741 /* AddColorView.swift */,
 				634150A123350F890068C741 /* ClearView.swift */,
-				63194CAA2337B08300CD650A /* PathsCellView.swift */,
+				63116198233E439400865320 /* PathsCellView.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -190,7 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63194CA42336683D00CD650A /* ImageTableViewCell.swift in Sources */,
-				63194CAB2337B08300CD650A /* PathsCellView.swift in Sources */,
+				63116199233E439400865320 /* PathsCellView.swift in Sources */,
 				6341509C2334BCA50068C741 /* AddColorView.swift in Sources */,
 				6327C6AA2334AF04003EF836 /* DrawingView.swift in Sources */,
 				634150A223350F890068C741 /* ClearView.swift in Sources */,
