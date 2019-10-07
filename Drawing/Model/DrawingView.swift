@@ -35,7 +35,7 @@ class DrawingView: UIView {
         case move
     }
     
-    weak var delegate: DrawingViewDelegate?
+    unowned var delegate: DrawingViewDelegate?
     unowned var appDrawingImage: UIImageView?
     
     private var undoLayers = [ShapeLayerType]()
@@ -121,20 +121,10 @@ class DrawingView: UIView {
     func redoLayer() {
         guard !undoLayers.isEmpty else { return }
         
-        appDrawingImage!.layer.addSublayer(shapeLayers.last!.drawLayer)
         shapeLayers.append(undoLayers.removeLast())
+        appDrawingImage!.layer.addSublayer(shapeLayers.last!.drawLayer)
         setNeedsDisplay()
     }
-    
-//    func clearView() {
-//        shapeLayers.compactMap({ $0.drawLayer.removeFromSuperlayer() })
-//        shapeLayers.removeAll()
-////        for layer in shapeLayers {
-////            layer.drawLayer.removeFromSuperlayer()
-////        }
-////        shapeLayers.removeAll()
-////        drawingViewOutlet.path = UIBezierPath()
-//    }
     
     override func draw(_ rect: CGRect) {
         if mode == .draw || mode == .clear {

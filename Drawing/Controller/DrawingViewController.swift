@@ -73,10 +73,6 @@ class DrawingViewController: UIViewController, AddColorViewDelegate, ClearViewDe
         drawingViewOutlet.redoLayer()
     }
     
-    @IBAction func downloadPhoneImageButtonTapped(_ sender: UIButton) {
-        //TODO: input image, drop
-    }
-    
     @IBAction func drawingImageDownloadButtonTapped(_ sender: UIButton) {
         let alertController = UIAlertController(title: "", message: "Would like to save a photo", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Decline", style: .cancel, handler: nil))

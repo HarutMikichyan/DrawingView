@@ -43,7 +43,6 @@ class ClearView: UIView {
     
     @IBAction func erase(_ sender: UIButton) {
         delegate?.getClearSize(nil)
-//        delegate?.erase()
         closeView()
     }
     

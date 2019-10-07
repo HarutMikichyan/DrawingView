@@ -185,16 +185,6 @@
                                             <action selector="redo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="s3d-wE-1CX"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h0v-Oj-CG9">
-                                        <rect key="frame" x="180" y="0.0" width="80" height="80"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="80" id="TuO-uF-vul"/>
-                                        </constraints>
-                                        <state key="normal" image="phoneImageIcon"/>
-                                        <connections>
-                                            <action selector="downloadPhoneImageButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ekD-Ke-NxO"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9yH-XJ-ACP">
                                         <rect key="frame" x="354" y="0.0" width="60" height="80"/>
                                         <constraints>
@@ -210,7 +200,6 @@
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="YoQ-RH-JAW" secondAttribute="bottom" id="095-Q2-AmZ"/>
                                     <constraint firstItem="YoQ-RH-JAW" firstAttribute="leading" secondItem="4mw-Xl-X73" secondAttribute="trailing" id="0f2-cj-Xuk"/>
-                                    <constraint firstItem="h0v-Oj-CG9" firstAttribute="top" secondItem="QTp-oI-FMs" secondAttribute="top" id="Dmn-Rm-iz4"/>
                                     <constraint firstItem="4mw-Xl-X73" firstAttribute="top" secondItem="QTp-oI-FMs" secondAttribute="top" id="IRW-D8-ypE"/>
                                     <constraint firstAttribute="bottom" secondItem="4mw-Xl-X73" secondAttribute="bottom" id="JJH-Ef-l4D"/>
                                     <constraint firstAttribute="height" constant="80" id="Njj-uX-qXC"/>
@@ -219,11 +208,9 @@
                                     <constraint firstItem="UGo-GZ-k8P" firstAttribute="leading" secondItem="YoQ-RH-JAW" secondAttribute="trailing" id="RLM-u4-f7q"/>
                                     <constraint firstItem="4mw-Xl-X73" firstAttribute="leading" secondItem="QTp-oI-FMs" secondAttribute="leading" id="UR9-cs-9PL"/>
                                     <constraint firstItem="YoQ-RH-JAW" firstAttribute="top" secondItem="QTp-oI-FMs" secondAttribute="top" id="Vom-5B-Zqc"/>
-                                    <constraint firstAttribute="bottom" secondItem="h0v-Oj-CG9" secondAttribute="bottom" id="WvX-xH-2Jq"/>
                                     <constraint firstAttribute="trailing" secondItem="9yH-XJ-ACP" secondAttribute="trailing" id="Y2F-Oh-PfC"/>
                                     <constraint firstAttribute="bottom" secondItem="UGo-GZ-k8P" secondAttribute="bottom" id="biQ-Ur-XCb"/>
                                     <constraint firstItem="UGo-GZ-k8P" firstAttribute="top" secondItem="QTp-oI-FMs" secondAttribute="top" id="eOn-Zt-o4i"/>
-                                    <constraint firstItem="h0v-Oj-CG9" firstAttribute="leading" secondItem="UGo-GZ-k8P" secondAttribute="trailing" id="rIq-EI-Dof"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mm8-g4-ucM">
@@ -936,7 +923,6 @@
         <image name="downloadImageIcon" width="50" height="50"/>
         <image name="moveIcon" width="50" height="50"/>
         <image name="pencilLogo" width="100" height="100"/>
-        <image name="phoneImageIcon" width="80" height="80"/>
         <image name="popViewControllerIcon" width="50" height="50"/>
         <image name="redoLogo" width="50" height="50"/>
         <image name="rubberLogo" width="50" height="50"/>
