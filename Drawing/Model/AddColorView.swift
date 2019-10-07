@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol GetColorDelegate: class {
+protocol AddColorViewDelegate: class {
     func getColor(_ color: UIColor, _ colorSize: CGFloat)
 }
 
 class AddColorView: UIView {
     
-    weak var delegate: GetColorDelegate?
+    weak var delegate: AddColorViewDelegate?
     weak var appBackgroundView: UIView? {
         didSet {
             showView()

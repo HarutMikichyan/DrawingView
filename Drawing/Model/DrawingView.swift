@@ -8,21 +8,23 @@
 
 import UIKit
 
-struct PathFragment {
-    var identifier: Int = 0
-    var path: UIBezierPath
+protocol DrawingViewDelegate: class {
+    func getShapeLayer(_ shapeLayer: CAShapeLayer)
+}
+
+struct ShapeLayerType {
+    var drawLayer: CAShapeLayer
     var color: UIColor
     
-    init(path: UIBezierPath, color: UIColor) {
-        self.path = path
+    init(shapeLayer: CAShapeLayer, color: UIColor) {
+        self.drawLayer = shapeLayer
         self.color = color
-        self.identifier = PathFragment.getIdentifier()
     }
-    
-    static var id = 0
-    static func getIdentifier() -> Int {
-        id += 1
-        return id
+}
+
+class ShapeLayer: CAShapeLayer {
+    override func contains(_ p: CGPoint) -> Bool {
+        return path?.contains(p, using: .winding, transform: .identity) ?? false
     }
 }
 
@@ -30,15 +32,20 @@ class DrawingView: UIView {
     enum Mode {
         case clear
         case draw
+        case move
     }
     
-    var undoPaths = [PathFragment]()
-    var paths = [PathFragment]()
+    weak var delegate: DrawingViewDelegate?
+    unowned var appDrawingImage: UIImageView?
+    
+    private var undoLayers = [ShapeLayerType]()
+    private var shapeLayer: CAShapeLayer!
+    
+    var shapeLayers = [ShapeLayerType]()
     var colorSize: CGFloat = 1.0
     var color: UIColor = .black
+    var path = UIBezierPath()
     var mode: Mode = .draw
-    
-    private var path = UIBezierPath()
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -46,40 +53,93 @@ class DrawingView: UIView {
     
     //MARK: - Draw Methods
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        path = UIBezierPath()
-        path.lineWidth = colorSize
-        path.lineCapStyle = .round
-        path.lineJoinStyle = .round
-        paths.append(PathFragment(path: path, color: (mode == .clear ? self.backgroundColor : color)!))
-        
-        let touch = touches.first!
-        path.move(to: touch.location(in: self))
+        if mode == .draw || mode == .clear {
+            path = UIBezierPath()
+            path.lineWidth = colorSize
+            path.lineCapStyle = .round
+            path.lineJoinStyle = .round
+            let touch = touches.first!
+            path.move(to: touch.location(in: self))
+            undoLayers = []
+        }
         setNeedsDisplay()
-        undoPaths = []
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch = touches.first!
-        path.addLine(to: touch.location(in: self))
+        if mode == .draw || mode == .clear {
+            let touch = touches.first!
+            path.addLine(to: touch.location(in: self))
+        }
         setNeedsDisplay()
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch = touches.first!
-        path.addLine(to: touch.location(in: self))
+        if mode == .draw || mode == .clear {
+            let touch = touches.first!
+            path.addLine(to: touch.location(in: self))
+            touchEnded()
+        }
         setNeedsDisplay()
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch = touches.first!
-        path.addLine(to: touch.location(in: self))
+        if mode == .draw || mode == .clear {
+            let touch = touches.first!
+            path.addLine(to: touch.location(in: self))
+            touchEnded()
+        }
         setNeedsDisplay()
     }
     
+    func touchEnded() {
+        shapeLayer = ShapeLayer()
+        shapeLayer.frame = path.bounds
+        path.apply(CGAffineTransform(translationX: -path.bounds.origin.x, y: -path.bounds.origin.y))
+        shapeLayer.path = path.cgPath
+        shapeLayer.lineWidth = path.lineWidth
+        shapeLayer.opacity = 1
+        shapeLayer.lineCap = .round
+        shapeLayer.lineJoin = .round
+        shapeLayer.strokeColor = color.cgColor
+        shapeLayer.fillColor = nil
+        
+        shapeLayers.append(ShapeLayerType(shapeLayer: shapeLayer, color: color))
+        delegate?.getShapeLayer(shapeLayer)
+        path.removeAllPoints()
+        setNeedsDisplay()
+    }
+    
+    func undoLayer() {
+        guard !shapeLayers.isEmpty, let lastIndex = appDrawingImage!.layer.sublayers?.count else { return }
+        
+        appDrawingImage!.layer.sublayers?.remove(at: lastIndex - 1)
+        undoLayers.append(shapeLayers.removeLast())
+        path = UIBezierPath()
+        setNeedsDisplay()
+    }
+    
+    func redoLayer() {
+        guard !undoLayers.isEmpty else { return }
+        
+        appDrawingImage!.layer.addSublayer(shapeLayers.last!.drawLayer)
+        shapeLayers.append(undoLayers.removeLast())
+        setNeedsDisplay()
+    }
+    
+//    func clearView() {
+//        shapeLayers.compactMap({ $0.drawLayer.removeFromSuperlayer() })
+//        shapeLayers.removeAll()
+////        for layer in shapeLayers {
+////            layer.drawLayer.removeFromSuperlayer()
+////        }
+////        shapeLayers.removeAll()
+////        drawingViewOutlet.path = UIBezierPath()
+//    }
+    
     override func draw(_ rect: CGRect) {
-        for fragment in paths {
-            fragment.color.setStroke()
-            fragment.path.stroke()
+        if mode == .draw || mode == .clear {
+            color.setStroke()
+            path.stroke()
         }
     }
 }

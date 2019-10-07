@@ -8,14 +8,13 @@
 
 import UIKit
 
-protocol GetClearSizeDelegate: class {
-    func getClearSize(_ size: CGFloat)
-    func erase()
+protocol ClearViewDelegate: class {
+    func getClearSize(_ size: CGFloat?)
 }
 
 class ClearView: UIView {
     
-    weak var delegate: GetClearSizeDelegate?
+    weak var delegate: ClearViewDelegate?
     weak var appBackgroundView: UIView? {
         didSet {
             showView()
@@ -43,7 +42,8 @@ class ClearView: UIView {
     
     
     @IBAction func erase(_ sender: UIButton) {
-        delegate?.erase()
+        delegate?.getClearSize(nil)
+//        delegate?.erase()
         closeView()
     }
     
