@@ -64,12 +64,10 @@ class DrawingViewController: UIViewController, AddColorViewDelegate, ClearViewDe
     }
     
     @IBAction func undo(_ sender: UIButton) {
-        guard drawingViewOutlet.mode == .draw || drawingViewOutlet.mode == .clear else { return }
         drawingViewOutlet.undoLayer()
     }
     
     @IBAction func redo(_ sender: UIButton) {
-        guard drawingViewOutlet.mode == .draw || drawingViewOutlet.mode == .clear else { return }
         drawingViewOutlet.redoLayer()
     }
     
@@ -77,9 +75,10 @@ class DrawingViewController: UIViewController, AddColorViewDelegate, ClearViewDe
         let alertController = UIAlertController(title: "", message: "Would like to save a photo", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Decline", style: .cancel, handler: nil))
         alertController.addAction(UIAlertAction(title: "Accept", style: .default, handler: { (screenshotImage) in
-            UIImageWriteToSavedPhotosAlbum(self.drawingImageViewOutlet.image!, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
+            guard let image = self.drawingImageViewOutlet.screenshot() else { return }
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
         }))
-
+        
         self.present(alertController, animated: true, completion: nil)
     }
     
@@ -87,7 +86,7 @@ class DrawingViewController: UIViewController, AddColorViewDelegate, ClearViewDe
         if let error = error {
             let ac = UIAlertController(title: "Save Error", message: error.localizedDescription, preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "Ok", style: .default))
-
+            
             self.present(ac, animated: true, completion: nil)
         } else {
             let showText = "Image Saved"

@@ -24,7 +24,11 @@ struct ShapeLayerType {
 
 class ShapeLayer: CAShapeLayer {
     override func contains(_ p: CGPoint) -> Bool {
-        return path?.contains(p, using: .winding, transform: .identity) ?? false
+        guard let path = path?.copy(strokingWithWidth: max(lineWidth, 20),
+                                    lineCap: .round,
+                                    lineJoin: .round,
+                                    miterLimit: .nan) else { return false }
+        return path.contains(p)
     }
 }
 
